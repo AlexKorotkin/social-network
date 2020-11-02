@@ -11,7 +11,7 @@ import store from "./redux/state";
 
 export let callSubscriber = (state: RootStateType) => {
     ReactDOM.render(
-        <App  state={state}
+        <App
               store = {store}
               dispatch={store.dispatch.bind(store)}
               />
@@ -20,11 +20,11 @@ export let callSubscriber = (state: RootStateType) => {
     );
 }
 
-
-
 callSubscriber(store.getState());
-
-
-
 store.subscribe(callSubscriber)
+
+
+
+
+
 
