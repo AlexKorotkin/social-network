@@ -33,6 +33,8 @@ export type RootStateType = {
 }
 let ADD_POST = 'ADD-POST';
 let UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+let UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
+let SEND_MESSAGE = 'SEND_MESSAGE';
  export let store = {
     _state: {
         profilePage: {
@@ -54,7 +56,8 @@ let UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
                 {id: 2, message: 'Я впорядке, а ты?'},
                 {id: 3, message: 'Домашку по алгебре сделала?'},
                 {id: 4, message: 'Делаю, а ты?'}
-            ]
+            ],
+            newMessageBody: ''
         },
         sideBar: {}
     },
@@ -76,14 +79,23 @@ let UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
         }else if (action.type === UPDATE_NEW_POST_TEXT){
             this._state.profilePage.newPostText = action.NewText;
             callSubscriber(this._state);
+        }else if(action.type === UPDATE_NEW_MESSAGE_BODY){
+            this._state.dialogsPage.newMessageBody = action.body;
+            this._callSubscriber(this._state);
+        }else if(action.type === SEND_MESSAGE){
+            let body = this._state.dialogsPage.newMessageBody
+            this._state.dialogsPage.newMessageBody = ''
+            this._state.dialogsPage.messages.push({id: 6, message: body})
+            this._callSubscriber(this._state);
         }
     }
  }
 export  let addPostActionCreator = () =>{
-
     return {type: ADD_POST}
 };
 export let updateNewPostTextActionCreator = (text) =>({type: UPDATE_NEW_POST_TEXT, newText: text})
+export let sendMessageCreator = () =>({type: SEND_MESSAGE})
+export let updateNewMessageBodyCreator = (body) =>({type: UPDATE_NEW_MESSAGE_BODY, body: body})
 
 /* let rerenderEntireTree=()=>{
     console.log('');

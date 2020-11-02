@@ -12,6 +12,7 @@ import store from "./redux/state";
 export let callSubscriber = (state: RootStateType) => {
     ReactDOM.render(
         <App  state={state}
+              store = {store}
               dispatch={store.dispatch.bind(store)}
               />
         ,
