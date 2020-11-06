@@ -100,7 +100,7 @@ export let store: StoreType = {
         this._callSubscriber = observer
     },
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
+        /*if (action.type === 'ADD-POST') {
             let newPost: PostType = {
                 id: new Date().getTime(),
                 message: this._state.profilePage.newPostText,
@@ -121,7 +121,8 @@ export let store: StoreType = {
             this._state.dialogsPage.messages.push({id: new Date().getTime(), message: body})
             this._callSubscriber(this._state);
         }
-    }
+    }*/
+
 }
 export let addPostActionCreator = (): AddPostActionType => ({type: 'ADD-POST'})
 export let updateNewPostTextActionCreator = (text: string): UpdateNewPostText => {
