@@ -1,4 +1,7 @@
-import {callSubscriber} from "../index";
+import {rerenderEntireTree} from "../index";
+import {profileReducer} from "./profile-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
+import {sidebarReducer} from "./sidebar-reducer";
 
 export type DialogType = {
     id: number
@@ -37,18 +40,18 @@ let UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 let UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
 let SEND_MESSAGE = 'SEND_MESSAGE';*/
 
-type AddPostActionType = {
+export type AddPostActionType = {
     type: "ADD-POST"
 }
-type  UpdateNewPostText = {
+export type  UpdateNewPostText = {
     type: "UPDATE_NEW_POST_TEXT"
     newText: string
 }
-type  UpdateNewMessageBody = {
+export type  UpdateNewMessageBody = {
     type: "UPDATE_NEW_MESSAGE_BODY"
     body: string
 }
-type  SendMessage = {
+export type  SendMessage = {
     type: "SEND_MESSAGE"
 
 }
@@ -122,16 +125,13 @@ export let store: StoreType = {
             this._callSubscriber(this._state);
         }
     }*/
-
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sideBar = sidebarReducer(this._state.sideBar, action);
+        this._callSubscriber(this._state);
+    }
 }
-export let addPostActionCreator = (): AddPostActionType => ({type: 'ADD-POST'})
-export let updateNewPostTextActionCreator = (text: string): UpdateNewPostText => {
-    return {type: 'UPDATE_NEW_POST_TEXT', newText: text}
-}
-export let sendMessageCreator = (): SendMessage => ({type: "SEND_MESSAGE"})
-export let updateNewMessageBodyCreator = (body: string): UpdateNewMessageBody => ({
-    type: 'UPDATE_NEW_MESSAGE_BODY',
-    body: body
-})
 
-export default store;
+
+
+
