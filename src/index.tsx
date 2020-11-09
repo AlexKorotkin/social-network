@@ -8,7 +8,7 @@ import {Provider} from "react-redux";
 
 
 
-export let rerenderEntireTree = (state: RootStateType) => {
+export let rerenderEntireTree = () => {
     ReactDOM.render(
             <Provider store ={store}>
                 <App/>
@@ -20,12 +20,12 @@ export let rerenderEntireTree = (state: RootStateType) => {
     );
 }
 
-rerenderEntireTree(store.getState());
+/*rerenderEntireTree();*/
 
-store.subscribe(() => {
+/*store.subscribe(() => {
     let state = store.getState()
     rerenderEntireTree(state)
-})
+})*/
 
 
 
