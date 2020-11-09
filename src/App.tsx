@@ -8,6 +8,8 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {ActionType,StoreType} from "./redux/store";
 import {DialogsContainer} from "./components/Dialogs/DialogsConteiner";
 
+/*Ctrl + Shift - -> - быстрое выделение фрагмента от того места, где установлен курсор.*/
+/*Ctrl + Shift + N  - поиск*/
 type PropsType ={
     store: any
     dispatch: (action: ActionType)=> void
