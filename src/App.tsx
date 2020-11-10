@@ -7,6 +7,7 @@ import {Profile} from "./components/Profile/Profile";
 import {BrowserRouter, Route} from 'react-router-dom';
 import {ActionType,StoreType} from "./redux/store";
 import {DialogsContainer} from "./components/Dialogs/DialogsConteiner";
+import {Users} from "./components/Users/Users";
 
 /*Ctrl + Shift - -> - быстрое выделение фрагмента от того места, где установлен курсор.*/
 /*Ctrl + Shift + N  - поиск*/
@@ -24,6 +25,7 @@ function App(props: PropsType) {
                 <div className={'app-wrapper-content'}>
                     <Route path={'/dialogs'} render={()=> <DialogsContainer/>}/>
                     <Route path={'/profile'} render ={() => <Profile/>}/>
+                    <Route path={'/users'} render ={() => <UsersContainer/>}/>
                 </div>
             </div>
         </BrowserRouter>
