@@ -2,12 +2,10 @@ import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import {Message} from "./Message/Message";
 import {DialogItem} from "./DialogItem/DialogItem";
-import {sendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
-import {DialogsPageType, StoreType} from "../../redux/store";
+import {DialogsPageType} from "../../redux/store";
 
 
 type DialogsPropsType = {
-    /*store: StoreType*/
     dialogsPage: DialogsPageType
     SendMessage: () => void
     updateNewMessageBody: (body: string) => void
@@ -30,7 +28,6 @@ export function Dialogs(props: DialogsPropsType) {
     let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let body = e.target.value
         props.updateNewMessageBody(body)
-        /*props.store.dispatch(updateNewMessageBodyCreator(body))*/
     }
 
 

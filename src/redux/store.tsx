@@ -1,7 +1,7 @@
-import {rerenderEntireTree} from "../index";
-import {profileReducer} from "./profile-reducer";
-import {dialogsReducer} from "./dialogs-reducer";
+import {ActionProfileType, profileReducer} from "./profile-reducer";
+import {ActionDialogsType, dialogsReducer} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
+import {ActionUsersType} from "./users-reducer";
 
 export type DialogType = {
     id: number
@@ -33,30 +33,23 @@ export type sideBar = {}
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
+    usersPage: Array<UserType>
     sideBar: sideBar
 }
-/*let ADD_POST = 'ADD-POST';
-let UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-let UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
-let SEND_MESSAGE = 'SEND_MESSAGE';*/
 
-export type AddPostActionType = {
-    type: "ADD-POST"
+export type UserType = {
+    id: number
+    photoUrl: string,
+    followed: boolean,
+    fullName: string,
+    status: string,
+    location: { city: string, country: string }
 }
-export type  UpdateNewPostText = {
-    type: "UPDATE_NEW_POST_TEXT"
-    newText: string
-}
-export type  UpdateNewMessageBody = {
-    type: "UPDATE_NEW_MESSAGE_BODY"
-    body: string
-}
-export type  SendMessage = {
-    type: "SEND_MESSAGE"
+// export type UsersType = Array<UserType>
 
-}
 
-export type ActionType = AddPostActionType | UpdateNewPostText | UpdateNewMessageBody | SendMessage;
+
+export type ActionType = ActionUsersType & ActionDialogsType & ActionProfileType;
 
 export type StoreType = {
     _state: RootStateType
@@ -91,6 +84,34 @@ export let store: StoreType = {
             ],
             newMessageBody: ''
         },
+        usersPage:
+            [
+                {
+                    id: new Date().getTime(),
+                    photoUrl: 'https://avatars.mds.yandex.net/get-zen_doc/1584427/pub_5e11039b8f011100ad298eed_5e1106265d6c4b00af467849/scale_1200',
+                    followed: false,
+                    fullName: 'Alex',
+                    status: 'I am a boss',
+                    location: {city: "Mogilev", country: 'Belarus'}
+                },
+                {
+                    id: new Date().getTime(),
+                    photoUrl: 'https://avatars.mds.yandex.net/get-zen_doc/1584427/pub_5e11039b8f011100ad298eed_5e1106265d6c4b00af467849/scale_1200',
+                    followed: false,
+                    fullName: 'Bob',
+                    status: 'I am a boss too',
+                    location: {city: "Minsk", country: 'Russia'}
+                },
+                {
+                    id: new Date().getTime(),
+                    photoUrl: 'https://avatars.mds.yandex.net/get-zen_doc/1584427/pub_5e11039b8f011100ad298eed_5e1106265d6c4b00af467849/scale_1200',
+                    followed: false,
+                    fullName: 'Mike',
+                    status: 'I am a boss too',
+                    location: {city: "Moscow", country: 'Russia'}
+                }
+            ]
+        ,
         sideBar: {}
     },
     _callSubscriber() {
@@ -102,29 +123,7 @@ export let store: StoreType = {
     subscribe(observer) {
         this._callSubscriber = observer
     },
-    dispatch(action) {
-        /*if (action.type === 'ADD-POST') {
-            let newPost: PostType = {
-                id: new Date().getTime(),
-                message: this._state.profilePage.newPostText,
-                likesCount: 0
-            };
-            this._state.profilePage.posts.push(newPost);
-            this._callSubscriber(this._state);
-            this._state.profilePage.newPostText = '';
-        } else if (action.type === 'UPDATE_NEW_POST_TEXT') {
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber(this._state);
-        } else if (action.type === 'UPDATE_NEW_MESSAGE_BODY') {
-            this._state.dialogsPage.newMessageBody = action.body;
-            this._callSubscriber(this._state);
-        } else if (action.type === 'SEND_MESSAGE') {
-            let body = this._state.dialogsPage.newMessageBody
-            this._state.dialogsPage.newMessageBody = ''
-            this._state.dialogsPage.messages.push({id: new Date().getTime(), message: body})
-            this._callSubscriber(this._state);
-        }
-    }*/
+    dispatch(action: ActionType) {
         this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
         this._state.sideBar = sidebarReducer(this._state.sideBar, action);
